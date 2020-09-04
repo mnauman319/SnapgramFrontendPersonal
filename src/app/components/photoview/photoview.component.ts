@@ -6,7 +6,6 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { TagService } from 'src/app/services/tag.service';
-import {MatChipsModule} from '@angular/material/chips';
 
 @Component({
   selector: 'app-photoview',
@@ -99,14 +98,12 @@ export class PhotoviewComponent implements OnInit {
     this.selectedPhoto.tags=null;
     this.pserv.editPhoto(this.selectedPhoto, this.userv.loggedInUser.userId);
 
-    //this.refreshPhotos();
     this.selectedPhoto.tags = this.tempTagList;
     this.closeModal();
   }
 
   tryDelete(){
     this.showDeleteConfirm=!this.showDeleteConfirm;
-
   }
 
   cancelDelete(){
@@ -123,6 +120,5 @@ export class PhotoviewComponent implements OnInit {
   async refreshPhotos(){
     await this.pserv.getPhotosByUid(this.userv.loggedInUser.userId);
     this.photos = this.pserv.storedPhotos;
-    console.log(this.photos);
   }
 }

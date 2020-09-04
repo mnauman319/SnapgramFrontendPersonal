@@ -30,7 +30,6 @@ export class PhotoService {
     photos.sort(function(a,b){return b.photoId-a.photoId});
     this.searchedUserId= uId;
     this.storedPhotos = photos;
-    //return photos;
   }
 
   async getPhotoById(pId:number):Promise<Photo>{

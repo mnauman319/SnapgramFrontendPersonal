@@ -21,8 +21,6 @@ export class HomepageComponent implements OnInit {
   user:User = this.userService.loggedInUser;
   uploadModal:boolean;
   
-
- // storedPhotos:Photo[] = this.photoService.storedPhotos;     //storaged of searched user's photos
   displayedPhotos:Photo[];  //photo array sent to photoview component
   filterInput:string;       //string input for filtering storedPhotos
 
@@ -37,21 +35,11 @@ export class HomepageComponent implements OnInit {
       this.getUserPhotos(this.currentUser.userId);
     }
 
-      // this.setCurrentUser();
-
-    //  this.setCurrentUser();
-
-
       this.setTitle("SnapGram");
   }
   setTitle(title:string){
     this.titleService.setTitle(title);
   }
-
-  // async setCurrentUser(){
-  //   let user:User = await this.userService.testingUser();
-  //   this.currentUser = user;
-  // }
 
   async getUserPhotos(userId:number){
     await this.photoService.getPhotosByUid(userId);
@@ -66,15 +54,15 @@ export class HomepageComponent implements OnInit {
       
       for(let photo of this.photoService.storedPhotos){
         
-        if(photo.photoName.includes(this.filterInput)){
+        if(photo.photoName.toLowerCase().includes(this.filterInput.toLowerCase())){
           filteredPhotos.push(photo);
         }else{
-        for(let tag of photo.tags){
-          if(tag.tagName.includes(this.filterInput)){
-            filteredPhotos.push(photo);
-            break;
+          for(let tag of photo.tags){
+            if(tag.tagName.toLowerCase().includes(this.filterInput.toLowerCase())){
+              filteredPhotos.push(photo);
+              break;
+            }
           }
-        }
         }
       }
       this.displayedPhotos = filteredPhotos;

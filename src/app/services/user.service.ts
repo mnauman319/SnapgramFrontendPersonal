@@ -12,31 +12,31 @@ export class UserService {
   //this userService will get cleared on refresh
   loggedInUser:User;
   baseUrl:string = environment.baseUrl;
-  // searcherdUser:User;
 
   constructor(private http:HttpClient) { }
 
-
   async createUser(user:User):Promise<User>{
-    user = await this.http.post<User>(`${this.baseUrl}:8080/users`,user).toPromise();
+    user = await this.http.post<User>(`${this.baseUrl}/users`,user).toPromise();
     return user;
   }
 
   async testingUser(){
     let user:User;
-    user = await this.http.get<User>(`${this.baseUrl}:8080/users/1`).toPromise();
+    user = await this.http.get<User>(`${this.baseUrl}/users/1`).toPromise();
     return user;
   }
 
   async searchUserByUsername(username:string){
     let user:User;
-    user = await this.http.get<User>(`${this.baseUrl}:8080/users?username=${username}`).toPromise();
+    user = await this.http.get<User>(`${this.baseUrl}/users?username=${username}`).toPromise();
     return user;
   }
+
   async attemptLogin(username:string,password:string):Promise<User>{
-    let httpResponse = await this.http.post<User>(`${this.baseUrl}:8080/login`,{username, password}).toPromise();
+    let httpResponse = await this.http.post<User>(`${this.baseUrl}/login`,{username, password}).toPromise();
     return httpResponse;
   }
+
   clearUser(){
     this.loggedInUser.userId = 0;
     this.loggedInUser.username ="";
