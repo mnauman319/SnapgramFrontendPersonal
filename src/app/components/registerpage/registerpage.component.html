@@ -1,0 +1,34 @@
+ <div class="register-form-container">
+    <div class="register-form">
+      <img src="../../../assets/SnapgramLogo.png">
+      <h1>Create Your SnapGram Account</h1>
+      <div class="name-field">
+            <input placeholder="First Name" id="new_fname_input" [(ngModel)]="new_fname">
+            <input placeholder="Last Name" [(ngModel)]="new_lname" id="new_lname_input">
+      </div>
+      <div class="username-field">
+            <input placeholder="Username or Email" [(ngModel)]="new_username" id="new_username_input">
+      </div>
+      <div class="password-field">
+        <div class="main-pass">
+          <input [type]="hidePassword ? 'password' : 'text'" placeholder="Password" [(ngModel)]="new_password" id="new_password_input">
+        </div>
+        <div class="confirm-pass">
+          <input [type]="hidePassword ? 'password' : 'text'" placeholder="Confirm Password">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="create-btn">
+        <button mat-raised-button id="create_user_btn" (click)="registerNewUser()">Create Account</button>
+      </div>
+      <div class="divider">
+        <div></div>
+      </div>
+      <div class="sign-in-btn">
+        <h1>Returning User?</h1>
+        <button mat-raised-button id="sign_in_btn" (click)="openSignInView()" >Sign In</button>
+      </div>
+    </div>
+  </div> 
