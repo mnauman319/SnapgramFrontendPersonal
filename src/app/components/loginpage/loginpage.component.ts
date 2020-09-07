@@ -36,6 +36,9 @@ export class LoginpageComponent implements OnInit {
   }
 
   async loginUser(){
+    console.log(`Username - ${this.username}`);
+    console.log(`Username - ${this.password}`);
+    
     let user:User = await this.userService.attemptLogin(this.username,this.password);
     if(user !== null){
       this.userService.loggedInUser = user;
