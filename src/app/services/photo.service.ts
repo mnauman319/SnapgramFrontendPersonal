@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Photo } from '../models/photo';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
 @Injectable({
@@ -15,30 +15,35 @@ export class PhotoService {
   constructor(private http:HttpClient, private userv:UserService) { }
 
   async createPhoto(photo:Photo, uId:number):Promise<Photo>{
-    photo = await this.http.post<Photo>(`${this.baseUrl}/${uId}/photos/`, photo).toPromise();
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa("mark:password") });
+    photo = await this.http.post<Photo>(`${this.baseUrl}/${uId}/photos/`, photo,{headers}).toPromise();
     return photo;
   }
 
   async getPhotosByUidAndTag(uId:number, hashtag:string):Promise<Array<Photo>>{
-    const photos:Array<Photo> = await this.http.get<Array<Photo>>(`${this.baseUrl}/users/${uId}/photos?hashtag=${hashtag}`).toPromise();
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa("mark:password") });
+    const photos:Array<Photo> = await this.http.get<Array<Photo>>(`${this.baseUrl}/users/${uId}/photos?hashtag=${hashtag}`,{headers}).toPromise();
     photos.sort(function(a,b){return b.photoId-a.photoId});
     return photos;
   }
 
   async getPhotosByUid(uId:number){
-    const photos:Array<Photo> = await this.http.get<Array<Photo>>(`${this.baseUrl}/users/${uId}/photos`).toPromise();
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa("mark:password") });
+    const photos:Array<Photo> = await this.http.get<Array<Photo>>(`${this.baseUrl}/users/${uId}/photos`,{headers}).toPromise();
     photos.sort(function(a,b){return b.photoId-a.photoId});
     this.searchedUserId= uId;
     this.storedPhotos = photos;
   }
 
   async getPhotoById(pId:number):Promise<Photo>{
-    const photo:Photo = await this.http.get<Photo>(`${this.baseUrl}/users/0/photos/${pId}`).toPromise();
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa("mark:password") });
+    const photo:Photo = await this.http.get<Photo>(`${this.baseUrl}/users/0/photos/${pId}`,{headers}).toPromise();
     return photo;
   }
 
   async editPhoto(photo:Photo, uId:number):Promise<Photo>{
-    const editedPhoto = await this.http.put<Photo>(`${this.baseUrl}/users/${uId}/photos`, photo).toPromise();
+    const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa("mark:password") });
+    const editedPhoto = await this.http.put<Photo>(`${this.baseUrl}/users/${uId}/photos`, photo,{headers}).toPromise();
     return editedPhoto;
   }
 
